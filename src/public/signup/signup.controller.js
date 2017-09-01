@@ -4,12 +4,21 @@
 angular.module('public')
 .controller('signUpController', signUpController);
 
-function signUpController() {
+signUpController.$inject = ['userService'];
+
+function signUpController(userService) {
     var $ctrl = this;
-    $ctrl.isRegistered = false;
-    
+
     $ctrl.submit = function() {
-        $ctrl.isRegistered = true;
+        userService.setUser($ctrl.user);
+    };
+
+    $ctrl.isUserRegistered = function() {
+        if(userService.getUser()) {
+            return true;
+        }
+
+        return false;
     };
 }
 
